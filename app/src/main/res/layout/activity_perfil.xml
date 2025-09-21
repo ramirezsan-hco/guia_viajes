@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title offset so it doesn't overlap the hamburger in activity_drawer -->
+        <TextView
+            android:id="@+id/tvTitulo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de Perfil"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginStart="56dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Nombre Completo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Completo"
+            android:textStyle="bold"
+            android:paddingTop="8dp" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="John Doe"
+            android:inputType="textPersonName" />
+
+        <!-- Información Personal -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Información Personal"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etInfoPersonal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="top|start"
+            android:hint="Escribe una breve descripción..."
+            android:inputType="textMultiLine" />
+
+        <!-- Destinos Visitados -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Destinos Visitados"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etDestinos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="París, Roma, Kioto, Machu Picchu..."
+            android:inputType="textMultiLine" />
+
+        <!-- Preferencias de Viaje -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferencias de Viaje"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etPreferencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Aventura, cultura, gastronomía, naturaleza..."
+            android:inputType="textMultiLine" />
+
+    </LinearLayout>
+</ScrollView>

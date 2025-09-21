@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title (offset so it won't collide with the hamburger) -->
+        <TextView
+            android:id="@+id/tvTituloFavoritos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Favoritos y Comentarios"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:layout_marginStart="56dp"
+            android:paddingBottom="16dp" />
+
+        <!-- Top action buttons: Guardar (green) + Compartir (blue) -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGuardar"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="  Guardar en Favoritos"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#2ECC71"
+                app:iconTint="@android:color/white"
+                app:icon="@android:drawable/ic_menu_save"
+                app:iconPadding="8dp"
+                app:iconGravity="textStart" />
+
+            <Space
+                android:layout_width="12dp"
+                android:layout_height="1dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCompartir"
+                style="?attr/materialButtonOutlinedStyle"
+                android:layout_width="0dp"
+                android:layout_height="48dp"
+                android:layout_weight="1"
+                android:text="  Compartir Experiencia"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                app:backgroundTint="#3A7BF7"
+                app:iconTint="@android:color/white"
+                app:icon="@android:drawable/ic_menu_share"
+                app:iconPadding="8dp"
+                app:iconGravity="textStart" />
+        </LinearLayout>
+
+        <!-- Califica este destino -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Califica este Destino"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:stepSize="1"
+            android:rating="3"
+            android:isIndicator="false"
+            android:layout_marginTop="6dp" />
+
+        <!-- Comentarios -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etComentario"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:gravity="top|start"
+            android:hint="Escribe tu comentario aquí..."
+            android:inputType="textMultiLine"
+            android:background="@android:color/transparent"
+            android:padding="8dp"
+            android:layout_marginTop="6dp"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:elevation="0dp"
+            android:outlineProvider="none" />
+
+        <!-- Publicar -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnPublicar"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="16dp"
+            android:text="  Publicar Comentario"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            app:backgroundTint="#635BFF"
+            app:iconTint="@android:color/white"
+            app:icon="@android:drawable/ic_dialog_email"
+            app:iconPadding="8dp"
+            app:iconGravity="textStart" />
+
+    </LinearLayout>
+</ScrollView>

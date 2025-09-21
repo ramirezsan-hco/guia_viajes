@@ -9,7 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title offset so it doesn't overlap the hamburger in activity_drawer -->
         <TextView
             android:id="@+id/tvTitulo"
             android:layout_width="wrap_content"

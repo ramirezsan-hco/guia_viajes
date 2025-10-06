@@ -10,7 +10,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <!-- Title (offset so it won't collide with the hamburger) -->
         <TextView
             android:id="@+id/tvTituloFavoritos"
             android:layout_width="wrap_content"
@@ -21,7 +20,7 @@
             android:layout_marginStart="56dp"
             android:paddingBottom="16dp" />
 
-        <!-- Top action buttons: Guardar (green) + Compartir (blue) -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -52,7 +51,7 @@
                 android:layout_width="0dp"
                 android:layout_height="48dp"
                 android:layout_weight="1"
-                android:text="  Compartir Experiencia"
+                android:text="Compartir Experiencia"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 app:backgroundTint="#3A7BF7"
@@ -62,7 +61,7 @@
                 app:iconGravity="textStart" />
         </LinearLayout>
 
-        <!-- Califica este destino -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -80,7 +79,7 @@
             android:isIndicator="false"
             android:layout_marginTop="6dp" />
 
-        <!-- Comentarios -->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

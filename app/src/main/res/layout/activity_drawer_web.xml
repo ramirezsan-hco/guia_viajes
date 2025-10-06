@@ -6,16 +6,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- Main content -->
+
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Include the web content -->
+
         <include layout="@layout/activity_web" />
 
-        <!-- Hamburger -->
+
         <ImageButton
             android:id="@+id/btnHamburger"
             android:layout_width="40dp"

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="20dp">
@@ -9,6 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <!-- Título con margen para no chocar con el botón hamburguesa -->
         <TextView
             android:id="@+id/tvTitulo"
             android:layout_width="wrap_content"
@@ -18,6 +20,19 @@
             android:textSize="24sp"
             android:layout_marginStart="56dp"
             android:paddingBottom="16dp" />
+
+        <!-- Foto circular centrada -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgPerfil"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:contentDescription="Foto de perfil"
+            android:scaleType="centerCrop"
+            app:shapeAppearanceOverlay="@style/CircleImage"
+            android:src="@drawable/perfil_demo" />
+        <!-- Coloca un archivo en res/drawable llamado perfil_demo.jpg/png -->
 
         <!-- Nombre Completo -->
         <TextView
@@ -31,7 +46,7 @@
             android:id="@+id/etNombre"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="John Doe"
+            android:hint="Pepito Perez"
             android:inputType="textPersonName" />
 
         <!-- Información Personal -->
@@ -45,10 +60,48 @@
         <EditText
             android:id="@+id/etInfoPersonal"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="120dp"
             android:gravity="top|start"
             android:hint="Escribe una breve descripción..."
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:overScrollMode="always" />
+
+        <!-- Estudios -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estudios"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etEstudios"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="top|start"
+            android:hint="Grado, universidad, cursos, certificaciones…"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:overScrollMode="always" />
+
+        <!-- Experiencia -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Experiencia"
+            android:textStyle="bold"
+            android:paddingTop="16dp" />
+
+        <EditText
+            android:id="@+id/etExperiencia"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:gravity="top|start"
+            android:hint="Puestos, proyectos, responsabilidades…"
+            android:inputType="textMultiLine"
+            android:scrollbars="vertical"
+            android:overScrollMode="always" />
 
         <!-- Destinos Visitados -->
         <TextView

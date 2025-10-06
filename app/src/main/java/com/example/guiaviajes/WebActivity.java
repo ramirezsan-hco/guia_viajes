@@ -10,7 +10,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import android.view.View;
+import android.widget.Button;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,10 +34,24 @@ public class WebActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_drawer_web);
 
+        View root = getWindow().getDecorView().findViewById(android.R.id.content);
+
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, systemBars.top, 0, 0);
+            return insets;
+        });
+
         drawer = findViewById(R.id.drawer_layout);
         NavigationView nav = findViewById(R.id.nav_view);
         if (nav.getHeaderCount() == 0) nav.inflateHeaderView(R.layout.nav_header);
+        View headerView = nav.getHeaderView(0);
+        Button btnEditarPerfil = (Button) headerView.findViewById(R.id.btnEditarPerfilHeader);
 
+        btnEditarPerfil.setOnClickListener(v -> {
+            Intent intent = new Intent(WebActivity.this, PerfilActivity.class);
+            startActivity(intent);
+        });
         // Menu hamburguesa
         ImageButton btnHamburger = findViewById(R.id.btnHamburger);
         btnHamburger.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));

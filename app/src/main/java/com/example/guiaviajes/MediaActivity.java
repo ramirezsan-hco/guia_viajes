@@ -2,12 +2,19 @@ package com.example.guiaviajes;
 
 import android.content.Intent;
 import android.media.AudioManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.ImageButton;
+import android.widget.MediaController;
 import android.widget.SeekBar;
 import android.widget.Toast;
 import android.widget.VideoView;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
@@ -20,25 +27,39 @@ import com.google.android.material.navigation.NavigationView;
 public class MediaActivity extends AppCompatActivity {
 
     private DrawerLayout drawer;
+
     private VideoView videoView;
-    private ImageButton btnPlayPause, btnMute;
+    private ImageButton btnPlayPause, btnMute, btnPrev, btnNext;
     private SeekBar volumeSeek;
     private AudioManager audio;
+    private MediaController mediaController;
+
+    private int lastPos = 0; // remember playback position
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_drawer_media);
+        setContentView(R.layout.activity_drawer_media); // this wraps your media layout
 
+        View root = getWindow().getDecorView().findViewById(android.R.id.content);
+
+        ViewCompat.setOnApplyWindowInsetsListener(root, (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(0, systemBars.top, 0, 0);
+            return insets;
+        });
         drawer = findViewById(R.id.drawer_layout);
         NavigationView nav = findViewById(R.id.nav_view);
-
         if (nav.getHeaderCount() == 0) nav.inflateHeaderView(R.layout.nav_header);
+        View headerView = nav.getHeaderView(0);
+        Button btnEditarPerfil = (Button) headerView.findViewById(R.id.btnEditarPerfilHeader);
 
-        // Menu hamburguesa
+        btnEditarPerfil.setOnClickListener(v -> {
+            Intent intent = new Intent(MediaActivity.this, PerfilActivity.class);
+            startActivity(intent);
+        });
         ImageButton btnHamburger = findViewById(R.id.btnHamburger);
         btnHamburger.setOnClickListener(v -> drawer.openDrawer(GravityCompat.START));
-
 
         nav.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -54,7 +75,6 @@ public class MediaActivity extends AppCompatActivity {
                 } else if (id == R.id.nav_favoritos) {
                     startActivity(new Intent(MediaActivity.this, FavoritosActivity.class));
                 }
-
                 drawer.closeDrawer(GravityCompat.START);
                 return true;
             }
@@ -71,13 +91,28 @@ public class MediaActivity extends AppCompatActivity {
             }
         });
 
-        //Controles
-        videoView   = findViewById(R.id.videoView);
-        btnPlayPause= findViewById(R.id.btnPlayPause);
-        btnMute     = findViewById(R.id.btnMute);
-        volumeSeek  = findViewById(R.id.volumeSeek);
+        // ---- UI refs
+        videoView    = findViewById(R.id.videoView);
+        btnPlayPause = findViewById(R.id.btnPlayPause);
+        btnMute      = findViewById(R.id.btnMute);
+        btnPrev      = findViewById(R.id.btnPrev);
+        btnNext      = findViewById(R.id.btnNext);
+        volumeSeek   = findViewById(R.id.volumeSeek);
 
+        // ---- Load bundled video + stock controller
+        Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.video_demo);
+        videoView.setVideoURI(uri);
 
+        mediaController = new MediaController(this);
+        mediaController.setAnchorView(videoView);
+        videoView.setMediaController(mediaController);
+
+        videoView.setOnPreparedListener(mp -> {
+            // seek to remembered position (e.g., after rotation / onResume)
+            videoView.seekTo(lastPos);
+        });
+
+        // ---- Custom controls you already have
         btnPlayPause.setOnClickListener(v -> {
             if (videoView.isPlaying()) {
                 videoView.pause();
@@ -88,6 +123,17 @@ public class MediaActivity extends AppCompatActivity {
             }
         });
 
+        // quick 10s skip back/forward
+        btnPrev.setOnClickListener(v -> {
+            int pos = Math.max(videoView.getCurrentPosition() - 10_000, 0);
+            videoView.seekTo(pos);
+        });
+        btnNext.setOnClickListener(v -> {
+            int pos = videoView.getCurrentPosition() + 10_000;
+            videoView.seekTo(pos);
+        });
+
+        // ---- Volume / mute
         audio = (AudioManager) getSystemService(AUDIO_SERVICE);
         int max = audio.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         int cur = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -104,14 +150,24 @@ public class MediaActivity extends AppCompatActivity {
         btnMute.setOnClickListener(v -> {
             int vol = audio.getStreamVolume(AudioManager.STREAM_MUSIC);
             if (vol > 0) {
-                volumeSeek.setTag(vol); // remember
+                volumeSeek.setTag(vol); // store previous
                 audio.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                 volumeSeek.setProgress(0);
             } else {
-                int prev = (volumeSeek.getTag() instanceof Integer) ? (Integer) volumeSeek.getTag() : max/2;
+                int prev = (volumeSeek.getTag() instanceof Integer) ? (Integer) volumeSeek.getTag() : max / 2;
                 audio.setStreamVolume(AudioManager.STREAM_MUSIC, prev, 0);
                 volumeSeek.setProgress(prev);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (videoView != null && videoView.isPlaying()) {
+            lastPos = videoView.getCurrentPosition();
+            videoView.pause();
+            btnPlayPause.setImageResource(android.R.drawable.ic_media_play);
+        }
     }
 }
